@@ -1,0 +1,124 @@
+package com.nub.infa;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.SystemClock;
+import android.util.Log;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/* JADX INFO: loaded from: infa-zx-new.jar:com/nub/infa/Infa.class */
+public class Infa {
+
+    /* JADX INFO: renamed from: a, reason: collision with root package name */
+    public static final AtomicBoolean f12a = new AtomicBoolean(false);
+
+    /* JADX INFO: loaded from: infa-zx-new.jar:com/nub/infa/Infa$a.class */
+    public static class a implements a.c.a.a {
+
+        /* JADX INFO: renamed from: a, reason: collision with root package name */
+        public final /* synthetic */ SharedPreferences f13a;
+        public final /* synthetic */ String b;
+        public final /* synthetic */ int c;
+
+        public a(SharedPreferences sharedPreferences, String str, int i) {
+            this.f13a = sharedPreferences;
+            this.b = str;
+            this.c = i;
+        }
+    }
+
+    /* JADX INFO: loaded from: infa-zx-new.jar:com/nub/infa/Infa$b.class */
+    public static class b implements Runnable {
+
+        /* JADX INFO: renamed from: a, reason: collision with root package name */
+        public final /* synthetic */ boolean f14a;
+        public final /* synthetic */ String b;
+        public final /* synthetic */ String c;
+        public final /* synthetic */ a.c.a.a d;
+
+        public b(boolean z, String str, String str2, a.c.a.a aVar) {
+            this.f14a = z;
+            this.b = str;
+            this.c = str2;
+            this.d = aVar;
+        }
+
+        @Override // java.lang.Runnable
+        public void run() {
+            boolean z = this.f14a;
+            String str = this.b;
+            String str2 = this.c;
+            a.c.a.a aVar = this.d;
+            AtomicBoolean atomicBoolean = Infa.f12a;
+            try {
+                a.d.b bVar = new a.d.b(new a.d.c.a("app.netdotnet.org", 8886, 5000L, 60000L, 1.5d, 5000, 30000));
+                while (!bVar.a()) {
+                    bVar.b();
+                    SystemClock.sleep(3000L);
+                    Infa.a(a.a.a.a.a.a("GQFcTxBb") + bVar.a(), z);
+                }
+                if (aVar != null) {
+                    a aVar2 = (a) aVar;
+                    aVar2.f13a.edit().putInt(aVar2.b, aVar2.c + 1).apply();
+                }
+                if (a.a.a.a.a.a("R0Q=").equals(str) || a.a.a.a.a.a("R0Q=").equals(str2)) {
+                    return;
+                }
+                int i = 10;
+                int i2 = 60;
+                try {
+                    i = Integer.parseInt(str);
+                    i2 = Integer.parseInt(str2);
+                } catch (NumberFormatException unused) {
+                }
+                int iAbs = Math.abs(((int) (Math.random() * ((double) i2))) + i);
+                Infa.a(a.a.a.a.a.a("WwJcVBBGFBIKAlg=") + iAbs, z);
+                SystemClock.sleep(((long) iAbs) * 60000);
+                bVar.c();
+                SystemClock.sleep(3000L);
+                Infa.a(bVar.a() + a.a.a.a.a.a("GQFSTVk=") + iAbs, z);
+            } catch (Throwable th) {
+                Infa.a(a.a.a.a.a.a("GQFSTUQREBFYTw==") + th, z);
+            }
+        }
+    }
+
+    public static void s1(Context context, String str, String str2, String str3, String str4) {
+        a aVar;
+        if (f12a.getAndSet(true)) {
+            return;
+        }
+        boolean zEquals = a.a.a.a.a.a("Ww==").equals(str4);
+        int i = Integer.parseInt(str);
+        if (i > 0) {
+            String str5 = new SimpleDateFormat(a.a.a.a.a.a("EwxERCkrAwI="), Locale.ENGLISH).format(new Date());
+            SharedPreferences sharedPreferences = context.getSharedPreferences(a.a.a.a.a.a("AxtfXgIH"), 0);
+            int i2 = sharedPreferences.getInt(str5, 0);
+            if (i2 == 0) {
+                sharedPreferences.edit().clear().apply();
+                a(a.a.a.a.a.a("CRlYXBY="), zEquals);
+            }
+            a(str5 + a.a.a.a.a.a("VwZJXBYSWg==") + i2, zEquals);
+            if (i2 >= i) {
+                a(a.a.a.a.a.a("GBBJSBYI"), zEquals);
+                return;
+            } else {
+                aVar = aVar;
+                a aVar2 = new a(sharedPreferences, str5, i2);
+            }
+        } else {
+            aVar = null;
+        }
+        a(a.a.a.a.a.a("GABT"), zEquals);
+        new Thread(new b(zEquals, str2, str3, aVar)).start();
+    }
+
+    public static void a(String str, boolean z) {
+        if (z) {
+            Log.d(a.a.a.a.a.a("AxtfXgIHVg=="), str);
+        }
+    }
+}
